@@ -1,0 +1,62 @@
+{
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.guides.bracketPairs": "active",
+  "editor.bracketPairColorization.enabled": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "todo-tree.general.tags": [
+    "TODO",
+    "LATER",
+    "NOTE",
+  ],
+  "todo-tree.filtering.excludeGlobs": [
+    "**/dist/*"
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "type": "text-and-comment",
+      "icon": "check-circle",
+      "gutterIcon": true,
+      "iconColour": "#FFA500",
+      "foreground": "#000000",
+      "background": "#FFA500"
+    },
+    "LATER": {
+      "type": "text-and-comment",
+      "icon": "pin",
+      "gutterIcon": true,
+      "iconColour": "#87CEEB",
+      "foreground": "#000000",
+      "background": "#87CEEB"
+    },
+    "NOTE": {
+      "type": "text-and-comment",
+      "icon": "bell",
+      "gutterIcon": true,
+      "iconColour": "#ffffff",
+      "foreground": "#000000",
+      "background": "#ffffff"
+    },
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, nodemon.json, .prettierrc.json, .eslintrc.json, tsconfig.json, .mocharc.json, .nycrc.json",
+    ".gitignore": ".prettierignore",
+  },
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:NodeJS-REST-API-TD}/prisma/database.db",
+      "name": "test"
+    }
+  ]
+}
