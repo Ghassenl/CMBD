@@ -1,5 +1,7 @@
+import { randomBytes } from "crypto";
 import { DatabaseFactory } from "../connections";
 import { IServer, ServerModel } from "../models";
+import { serversRoutes } from "../routes/api/servers";
 
 const getServer = async (id: number): Promise<ServerModel | null> => {
   try {
@@ -44,7 +46,15 @@ const addServer = async (
     if (serverRes) {
       return new ServerModel(server);
     }
-
+    if(server.type !=="physical" && server.type !=="Virtual"){
+      throw Error("Type does not match");
+    }
+    if(server.cpu_count>64){
+      throw Error("CPU cannot be greater than 64");
+    }
+    if(server.ram>256){
+      throw Error("RAM must be less than 265");
+    }
     return null;
   } catch (err) {
     console.error("ServersController(addServer) error: ", err);
