@@ -1,11 +1,20 @@
-import { routes } from "./routes";
-import express from "express";
+import express, { Express, Router } from "express";
 import { errorHandlingMiddleware } from "./middlewares";
 
-const app = express();
-app.use(express.json());
+interface ExpressAppFactoryConfig {
+  app?: Express;
+  router: Router;
+}
 
-app.use(routes);
-app.use(errorHandlingMiddleware);
+class ExpressAppFactory {
+  public static createExpressApp(config: ExpressAppFactoryConfig): Express {
+    const app = config.app ?? express();
+    app.use(express.json());
+    app.use(config.router);
+    app.use(errorHandlingMiddleware);
 
-export { app };
+    return app;
+  }
+}
+
+export { ExpressAppFactory };

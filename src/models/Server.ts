@@ -1,6 +1,9 @@
 import { Server as IServer } from "@prisma/client";
 import { JSONObject } from "./types";
 
+type IServerCreateDTO = Omit<IServer, "id">;
+type IServerPatchDTO = Partial<IServerCreateDTO>;
+
 class ServerModel implements IServer {
   id: number;
   type: string;
@@ -47,4 +50,4 @@ class ServerModel implements IServer {
   }
 }
 
-export { ServerModel, IServer };
+export { ServerModel, IServer, IServerCreateDTO, IServerPatchDTO };

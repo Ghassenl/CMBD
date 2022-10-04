@@ -1,14 +1,14 @@
 import { RequestHandler } from "express";
 
-import { ServersController } from "../../../controllers";
+import { RaidsController } from "../../../controllers";
 import { ApiError, ErrorStatusCode } from "../../../models";
 
-const getServersList: RequestHandler = async (
+const getRaidsList: RequestHandler = async (
   request,
   response,
   next,
 ): Promise<void> => {
-  const itemsList = await ServersController.getServers();
+  const itemsList = await RaidsController.getRaids();
 
   if (itemsList) {
     response.json({
@@ -16,9 +16,9 @@ const getServersList: RequestHandler = async (
     });
   } else {
     return next(
-      new ApiError("Servers list not found !", ErrorStatusCode.NOT_FOUND),
+      new ApiError("Raids list not found !", ErrorStatusCode.NOT_FOUND),
     );
   }
 };
 
-export default getServersList;
+export default getRaidsList;

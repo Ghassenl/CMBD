@@ -1,19 +1,19 @@
-import { ServersController } from "../../../controllers";
+import { RaidsController } from "../../../controllers";
 import { RequestHandler } from "express";
-import { ApiError, ErrorStatusCode, IServerPatchDTO } from "../../../models";
+import { ApiError, ErrorStatusCode, IRaidPatchDTO } from "../../../models";
 
-const updateServer: RequestHandler<
+const updateRaid: RequestHandler<
   { id: string },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
-  IServerPatchDTO
+  IRaidPatchDTO
 > = async (request, response, next): Promise<void> => {
   const id = parseInt(request.params.id);
   let itemUpdated = false;
 
   try {
     if (!isNaN(id)) {
-      itemUpdated = await ServersController.updateServer(id, request.body);
+      itemUpdated = await RaidsController.updateRaid(id, request.body);
     }
   } catch (err) {
     console.error(err);
@@ -21,14 +21,14 @@ const updateServer: RequestHandler<
 
   if (itemUpdated) {
     response.json({
-      message: `Server(${id}) successfully updated!`,
+      message: `Raid(${id}) successfully updated!`,
       success: true,
     });
   } else {
     return next(
-      new ApiError("Server update failed !", ErrorStatusCode.NOT_FOUND),
+      new ApiError("Raid update failed !", ErrorStatusCode.NOT_FOUND),
     );
   }
 };
 
-export default updateServer;
+export default updateRaid;
