@@ -1,6 +1,6 @@
 import { SQLiteDatabase } from "../database";
 
-class DatabaseFactory {
+class getDatabaseConnection {
   private static database = new SQLiteDatabase();
 
   public static getConnection(): SQLiteDatabase {
@@ -8,4 +8,4 @@ class DatabaseFactory {
   }
 }
 
-export { DatabaseFactory };
+export { getDatabaseConnection };
