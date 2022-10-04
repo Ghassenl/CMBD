@@ -40,15 +40,15 @@ const addServer = async (server: IServerOmit): Promise<ServerModel | null> => {
     if (serverRes) {
       return new ServerModel(serverRes);
     }
-    // if (server.type !== "virtual" && server.type !== "physical") {
-    //   return null;
-    // }
-    // if (server.ram > 256) {
-    //   return null;
-    // }
-    // if (server.cpu_count > 64) {
-    //   return null;
-    // }
+    if (server.type !== "virtual" && server.type !== "physical") {
+      return null;
+    }
+    if (server.ram > 256) {
+      return null;
+    }
+    if (server.cpu_count > 64) {
+      return null;
+    }
 
     return null;
   } catch (err) {
@@ -125,15 +125,15 @@ const updateServer = async (
     if (serverRes) {
       return true;
     }
-    // if (server.type !== "virtual" && server.type !== "physical") {
-    //   return false;
-    // }
-    // if (server.ram > 256) {
-    //   return false;
-    // }
-    // if (server.cpu_count > 64) {
-    //   return false;
-    // }
+    if (server.type !== "virtual" && server.type !== "physical") {
+      return false;
+    }
+    if (server.ram > 256) {
+      return false;
+    }
+    if (server.cpu_count > 64) {
+      return false;
+    }
 
     return false;
   } catch (err) {
