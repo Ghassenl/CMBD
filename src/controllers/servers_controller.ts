@@ -1,9 +1,9 @@
-import { DatabaseFactory } from "../connections";
-import { IServer, ServerModel } from "../models";
+import { getDatabaseConnection } from "../connections";
+import { IServerOmit, ServerModel } from "../models";
 
 const getServer = async (id: number): Promise<ServerModel | null> => {
   try {
-    const server = await DatabaseFactory.getConnection().servers.getServer(id);
+    const server = await getDatabaseConnection().servers.getServer(id);
 
     if (server) {
       return new ServerModel(server);
@@ -18,7 +18,7 @@ const getServer = async (id: number): Promise<ServerModel | null> => {
 
 const getServers = async (): Promise<ServerModel[] | null> => {
   try {
-    const servers = await DatabaseFactory.getConnection().servers.getServers();
+    const servers = await getDatabaseConnection().servers.getServers();
 
     if (servers.length) {
       return servers.map((server) => {
@@ -33,16 +33,12 @@ const getServers = async (): Promise<ServerModel[] | null> => {
   }
 };
 
-const addServer = async (
-  server: Omit<IServer, "id">,
-): Promise<ServerModel | null> => {
+const addServer = async (server: IServerOmit): Promise<ServerModel | null> => {
   try {
-    const serverRes = await DatabaseFactory.getConnection().servers.addServer(
-      server,
-    );
+    const serverRes = await getDatabaseConnection().servers.addServer(server);
 
     if (serverRes) {
-      return new ServerModel(server);
+      return new ServerModel(serverRes);
     }
 
     return null;
@@ -52,11 +48,32 @@ const addServer = async (
   }
 };
 
+const addServers = async (
+  servers: IServerOmit[],
+): Promise<ServerModel[] | null> => {
+  try {
+    const serverRes = await getDatabaseConnection().servers.addServers(servers);
+
+    if (serverRes) {
+      const res: ServerModel[] = [];
+      for (const server of serverRes) {
+        if (server) {
+          res.push(new ServerModel(server));
+        }
+      }
+      return res;
+    }
+
+    return null;
+  } catch (err) {
+    console.error("ServersController(addServers) error: ", err);
+    throw err;
+  }
+};
+
 const deleteServer = async (id: number): Promise<boolean> => {
   try {
-    const server = await DatabaseFactory.getConnection().servers.deleteServer(
-      id,
-    );
+    const server = await getDatabaseConnection().servers.deleteServer(id);
 
     if (server) {
       return true;
@@ -69,13 +86,32 @@ const deleteServer = async (id: number): Promise<boolean> => {
   }
 };
 
+const deleteServers = async (ids: number[]): Promise<boolean> => {
+  try {
+    const serversDeleted = await getDatabaseConnection().servers.deleteServers(
+      ids,
+    );
+
+    if (serversDeleted && serversDeleted === ids.length) {
+      return true;
+    }
+
+    return false;
+  } catch (err) {
+    console.error("ServersController(deleteServers) error: ", err);
+    throw err;
+  }
+};
+
 const updateServer = async (
   id: number,
-  server: Omit<IServer, "id">,
+  server: IServerOmit,
 ): Promise<boolean> => {
   try {
-    const serverRes =
-      await DatabaseFactory.getConnection().servers.updateServer(id, server);
+    const serverRes = await getDatabaseConnection().servers.updateServer(
+      id,
+      server,
+    );
 
     if (serverRes) {
       return true;
@@ -88,4 +124,34 @@ const updateServer = async (
   }
 };
 
-export { getServer, getServers, addServer, deleteServer, updateServer };
+const updateServers = async (
+  ids: number[],
+  server: IServerOmit,
+): Promise<boolean> => {
+  try {
+    const serversUpdated = await getDatabaseConnection().servers.updateServers(
+      ids,
+      server,
+    );
+
+    if (serversUpdated && serversUpdated === ids.length) {
+      return true;
+    }
+
+    return false;
+  } catch (err) {
+    console.error("ServersController(updateServers) error: ", err);
+    throw err;
+  }
+};
+
+export {
+  getServer,
+  getServers,
+  addServer,
+  deleteServer,
+  updateServer,
+  addServers,
+  updateServers,
+  deleteServers,
+};
