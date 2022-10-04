@@ -44,6 +44,15 @@ const addServer = async (
     if (serverRes) {
       return new ServerModel(server);
     }
+    if (server.type !== "virtual" && server.type !== "physical") {
+      throw Error("invalid type");
+    }
+    if (server.ram > 256) {
+      throw Error("Capacity too high");
+    }
+    if (server.cpu_count > 64) {
+      throw Error("Cpu Greater than 64");
+    }
 
     return null;
   } catch (err) {
@@ -80,7 +89,15 @@ const updateServer = async (
     if (serverRes) {
       return true;
     }
-
+    if (server.type !== "virtual" && server.type !== "physical") {
+      throw Error("invalid type");
+    }
+    if (server.ram > 256) {
+      throw Error("Capacity too high");
+    }
+    if (server.cpu_count > 64) {
+      throw Error("Cpu Greater than 64");
+    }
     return false;
   } catch (err) {
     console.error("ServersController(updateServer) error: ", err);
