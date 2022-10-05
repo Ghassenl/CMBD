@@ -11,31 +11,31 @@ datasource db {
 }
 
 model Server {
-  id               Int                @id @default(autoincrement())
-  type             String             @default("virtual")
-  hostname         String
-  ram              Int
-  cpu_count        Int
-  Disk             Disk[]
-  NetworkInterface NetworkInterface[]
-  SecGroupServer   SecGroupServer[]
+  id                Int                @id @default(autoincrement())
+  type              String             @default("virtual")
+  hostname          String
+  ram               Int
+  cpu_count         Int
+  disks             Disk[]
+  networkInterfaces NetworkInterface[]
+  secGroupServers   SecGroupServer[]
 }
 
 model Raid {
   id        Int    @id @default(autoincrement())
   raid_type Int
-  Disk      Disk[]
+  disks     Disk[]
 }
 
 model Disk {
-  id        Int         @id @default(autoincrement())
-  type      String      @default("ssd")
-  size      Int
-  id_raid   Int?
-  id_server Int
-  raid      Raid?       @relation(fields: [id_raid], references: [id])
-  server    Server      @relation(fields: [id_server], references: [id])
-  Partition Partition[]
+  id         Int         @id @default(autoincrement())
+  type       String      @default("ssd")
+  size       Int
+  id_raid    Int?
+  id_server  Int
+  raid       Raid?       @relation(fields: [id_raid], references: [id])
+  server     Server      @relation(fields: [id_server], references: [id])
+  partitions Partition[]
 }
 
 model Partition {
@@ -55,10 +55,10 @@ model NetworkInterface {
 }
 
 model SecGroup {
-  id             Int              @id @default(autoincrement())
-  name           String           @unique
-  SecRule        SecRule[]
-  SecGroupServer SecGroupServer[]
+  id              Int              @id @default(autoincrement())
+  name            String           @unique
+  secRules        SecRule[]
+  secGroupServers SecGroupServer[]
 }
 
 model SecRule {

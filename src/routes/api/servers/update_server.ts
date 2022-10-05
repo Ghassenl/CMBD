@@ -1,25 +1,25 @@
 import { ServersController } from "../../../controllers";
 import { RequestHandler } from "express";
-import { ApiError, ErrorStatusCode } from "../../../models";
+import { ApiError, ErrorStatusCode, IServerPatchDTO } from "../../../models";
 
-const updateServer: RequestHandler<{ id: string }> = async (
-  request,
-  response,
-  next,
-): Promise<void> => {
+const updateServer: RequestHandler<
+  { id: string },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  IServerPatchDTO
+> = async (request, response, next): Promise<void> => {
   const id = parseInt(request.params.id);
-  const updatedServer = request.body ?? {};
-  let serverUpdated = false;
+  let itemUpdated = false;
 
   try {
     if (!isNaN(id)) {
-      serverUpdated = await ServersController.updateServer(id, updatedServer);
+      itemUpdated = await ServersController.updateServer(id, request.body);
     }
   } catch (err) {
     console.error(err);
   }
 
-  if (serverUpdated) {
+  if (itemUpdated) {
     response.json({
       message: `Server(${id}) successfully updated!`,
       success: true,

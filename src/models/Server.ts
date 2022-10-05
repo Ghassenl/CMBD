@@ -1,5 +1,9 @@
 import { Server as IServer } from "@prisma/client";
+import { DiskModel, IDisk } from "./Disk";
 import { JSONObject } from "./types";
+
+type IServerCreateDTO = Omit<IServer, "id">;
+type IServerPatchDTO = Partial<IServerCreateDTO>;
 
 class ServerModel implements IServer {
   id: number;
@@ -7,9 +11,26 @@ class ServerModel implements IServer {
   hostname: string;
   ram: number;
   cpu_count: number;
+  disks?: DiskModel[];
+
 
   constructor(server: IServer | JSONObject) {
-    Object.assign(this, server);
+    const { disks, secGroupServers, networkInterfaces, ...restArgs } =
+      server as JSONObject;
+
+    Object.assign(this, restArgs);
+
+    if (disks) {
+      this.disks = [];
+      (disks as IDisk[]).forEach((disk) => {
+        this.disks?.push(new DiskModel(disk));
+      });
+    }
+
+  
+    }
+
+    
   }
 
   getID() {
@@ -32,6 +53,18 @@ class ServerModel implements IServer {
     return this.cpu_count;
   }
 
+  getDisks() {
+    return this.disks ?? null;
+  }
+
+  getSecGroupServers() {
+    return this.secGroupServers ?? null;
+  }
+
+  getNetworkInterfaces() {
+    return this.networkInterfaces ?? null;
+  }
+
   toJson(): JSONObject {
     return {
       id: this.id,
@@ -47,4 +80,4 @@ class ServerModel implements IServer {
   }
 }
 
-export { ServerModel, IServer };
+export { ServerModel, IServer, IServerCreateDTO, IServerPatchDTO };

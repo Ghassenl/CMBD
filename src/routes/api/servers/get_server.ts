@@ -9,14 +9,14 @@ const getServer: RequestHandler<{ id: string }> = async (
   next,
 ): Promise<void> => {
   const id = parseInt(request.params.id);
-  let server: ServerModel | null = null;
+  let resource: ServerModel | null = null;
 
   if (!isNaN(id)) {
-    server = await ServersController.getServer(id);
+    resource = await ServersController.getServer(id);
   }
 
-  if (server) {
-    response.json(server.toJson());
+  if (resource) {
+    response.json(resource.toJson());
   } else {
     return next(new ApiError("Server not found !", ErrorStatusCode.NOT_FOUND));
   }

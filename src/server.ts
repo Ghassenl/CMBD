@@ -1,24 +1,17 @@
 import http from "http";
-import { app } from "./app";
+import { ExpressAppFactory } from "./app";
 import config from "./configs";
-import { DatabaseFactory } from "./connections";
+import { routes } from "./routes";
 
-const server = http.createServer(app);
+const server = http.createServer(
+  ExpressAppFactory.createExpressApp({
+    router: routes,
+  }),
+);
 
 server.addListener("listening", () => {
-  console.info("The server is running!");
+  console.info(`The server is running on port ${config.port}`);
 });
-
-const databaseConnection = DatabaseFactory.getConnection();
-
-try {
-  databaseConnection.connect().then(async () => {
-    console.info("Database connection initialized!");
-  });
-} catch (databaseError) {
-  console.error("Database connection Error: ", databaseError);
-  throw databaseError;
-}
 
 server.listen({
   port: config.port,
