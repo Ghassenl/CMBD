@@ -9,13 +9,13 @@ const deleteServer: RequestHandler<{ id: string }> = async (
   next,
 ): Promise<void> => {
   const id = parseInt(request.params.id);
-  let serverDeleted = false;
+  let itemDeleted = false;
 
   if (!isNaN(id)) {
-    serverDeleted = await ServersController.deleteServer(id);
+    itemDeleted = await ServersController.deleteServer(id);
   }
 
-  if (serverDeleted) {
+  if (itemDeleted) {
     response.json({
       message: `Server(${id}) successfully deleted!`,
       success: true,

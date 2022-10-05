@@ -8,11 +8,12 @@ const getServersList: RequestHandler = async (
   response,
   next,
 ): Promise<void> => {
-  const ServersResult = await ServersController.getServers();
+  const itemsList = await ServersController.getServers();
 
-  if (ServersResult) {
-    const ServersResultResponse = ServersResult.map((item) => item.toJson());
-    response.json(ServersResultResponse);
+  if (itemsList) {
+    response.json({
+      items: itemsList.map((item) => item.toJson()),
+    });
   } else {
     return next(
       new ApiError("Servers list not found !", ErrorStatusCode.NOT_FOUND),

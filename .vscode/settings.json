@@ -55,8 +55,8 @@
     {
       "previewLimit": 50,
       "driver": "SQLite",
-      "database": "${workspaceFolder:NodeJS-REST-API-TD}/prisma/database.db",
-      "name": "test"
+      "name": "sqlite-prisma-gh",
+      "database": "${workspaceFolder:NodeJS-Primsa-SQlite-API}/prisma/database.sql"
     }
   ]
 }

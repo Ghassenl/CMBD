@@ -11,9 +11,9 @@
   "timeout": "2000",
   "ui": "bdd",
   "watch-files": [
-    "src/tests/**/*.spec.ts"
+    "tests/**/*.spec.ts"
   ],
   "watch-ignore": [
-    "src/tests/**/*.spec.ts"
+    "tests/**/*.spec.ts"
   ]
 }
