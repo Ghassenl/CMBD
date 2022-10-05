@@ -1,14 +1,17 @@
-import { Server as IServerOmit } from "@prisma/client";
+import { Server as IServer } from "@prisma/client";
 import { JSONObject } from "./types";
 
-class ServerModel implements IServerOmit {
+type IServerCreateDTO = Omit<IServer, "id">;
+type IServerPatchDTO = Partial<IServerCreateDTO>;
+
+class ServerModel implements IServer {
   id: number;
   type: string;
   hostname: string;
   ram: number;
   cpu_count: number;
 
-  constructor(server: IServerOmit | JSONObject) {
+  constructor(server: IServer | JSONObject) {
     Object.assign(this, server);
   }
 
@@ -47,4 +50,4 @@ class ServerModel implements IServerOmit {
   }
 }
 
-export { ServerModel, IServerOmit };
+export { ServerModel, IServer, IServerCreateDTO, IServerPatchDTO };
