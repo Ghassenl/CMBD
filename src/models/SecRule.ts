@@ -1,8 +1,12 @@
 import { SecRule as ISecRule } from "@prisma/client";
 import { JSONObject } from "./types";
 
-type ISecRuleCreateDTO = Omit<ISecRule, "id">;
-type ISecRulePatchDTO = Partial<ISecRuleCreateDTO>;
+type ICreateUpdateSecRule = Omit<ISecRule, "destination"> & {
+  destination?: string | null;
+};
+
+type ISecRuleCreateDTO = Omit<ICreateUpdateSecRule, "id">;
+type ISecRulePatchDTO = Partial<ICreateUpdateSecRule>;
 
 class SecRuleModel implements ISecRule {
   id: number;

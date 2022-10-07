@@ -76,7 +76,7 @@ class SecGroupServersController {
         secGroupServers,
       );
 
-      if (secGroupServerRes) {
+      if (secGroupServerRes.length) {
         const res: SecGroupServerModel[] = [];
         for (const secGroupServer of secGroupServerRes) {
           if (secGroupServer) {

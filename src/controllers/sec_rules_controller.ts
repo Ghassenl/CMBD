@@ -57,7 +57,7 @@ class SecRulesController {
     try {
       const secRuleRes = await SecRulesService.createList(secRules);
 
-      if (secRuleRes) {
+      if (secRuleRes.length) {
         const res: SecRuleModel[] = [];
         for (const secRule of secRuleRes) {
           if (secRule) {

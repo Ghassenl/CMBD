@@ -106,7 +106,7 @@ class SecGroupsController {
     try {
       const secGroupRes = await SecGroupsService.createList(secGroups);
 
-      if (secGroupRes) {
+      if (secGroupRes.length) {
         const res: SecGroupModel[] = [];
         for (const secGroup of secGroupRes) {
           if (secGroup) {

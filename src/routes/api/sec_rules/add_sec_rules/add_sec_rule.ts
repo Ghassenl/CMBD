@@ -1,16 +1,12 @@
 import { RequestHandler } from "express";
 import { SecRulesController } from "../../../../controllers";
-import {
-  ApiError,
-  ErrorStatusCode,
-  ISecRuleCreateDTO,
-} from "../../../../models";
+import { ApiError, ErrorStatusCode, ISecRule } from "../../../../models";
 
 const addSecRule: RequestHandler<
   Record<string, string>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
-  ISecRuleCreateDTO
+  ISecRule
 > = async (request, response, next): Promise<void> => {
   let added = null;
 

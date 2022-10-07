@@ -61,7 +61,7 @@ class PartitionsController {
     try {
       const partitionRes = await PartitionsService.createList(partitions);
 
-      if (partitionRes) {
+      if (partitionRes.length) {
         const res: PartitionModel[] = [];
         for (const partition of partitionRes) {
           if (partition) {

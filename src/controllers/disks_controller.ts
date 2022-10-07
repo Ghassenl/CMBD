@@ -71,7 +71,7 @@ class DisksController {
     try {
       const diskRes = await DisksService.createList(disks);
 
-      if (diskRes) {
+      if (diskRes.length) {
         const res: DiskModel[] = [];
         for (const disk of diskRes) {
           if (disk) {

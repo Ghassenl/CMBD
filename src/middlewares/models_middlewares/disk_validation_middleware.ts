@@ -26,7 +26,7 @@ const diskCreateValidationMiddleware: RequestHandler = async (req, _, next) => {
     size: number(),
     //if 'id_raid' not specified/defined it defaults to null
     id_raid: coerce(
-      nullable(number()),
+      optional(nullable(number())),
       optional(number()),
       (value) => value ?? null,
     ),
@@ -36,11 +36,13 @@ const diskCreateValidationMiddleware: RequestHandler = async (req, _, next) => {
   try {
     if (req.body) {
       if (Array.isArray(req.body)) {
-        req.body = [];
+        const body = [];
 
         for (const disk of req.body) {
-          req.body.push(create(disk, Disk));
+          body.push(create(disk, Disk));
         }
+
+        req.body = body;
       } else {
         req.body = create(req.body, Disk);
       }
@@ -78,9 +80,7 @@ const diskUpdateValidationMiddleware: RequestHandler = async (req, _, next) => {
       ),
     ),
     size: optional(number()),
-    id_raid: optional(
-      coerce(nullable(number()), optional(number()), (value) => value ?? null),
-    ),
+    id_raid: optional(nullable(number())),
     id_server: optional(number()),
   });
 
