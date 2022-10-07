@@ -7,7 +7,7 @@ interface ExpressAppFactoryConfig {
 }
 
 class ExpressAppFactory {
-  public static createExpressApp(config: ExpressAppFactoryConfig): Express {
+  static createExpressApp(config: ExpressAppFactoryConfig): Express {
     const app = config.app ?? express();
     app.use(express.json());
     app.use(config.router);

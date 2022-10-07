@@ -35,8 +35,6 @@ const partitionCreateValidationMiddleware: RequestHandler = async (
   try {
     if (req.body) {
       if (Array.isArray(req.body)) {
-        req.body = [];
-
         for (const partition of req.body) {
           assert(partition, Partition);
 

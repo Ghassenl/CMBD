@@ -4,14 +4,14 @@ import {
   SecRuleModel,
   ApiError,
   ErrorStatusCode,
-  ISecRuleCreateDTO,
+  ISecRule,
 } from "../../../../models";
 
 const addSecRulesList: RequestHandler<
   Record<string, string>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
-  ISecRuleCreateDTO[]
+  ISecRule[]
 > = async (request, response, next): Promise<void> => {
   let itemsListAdded: SecRuleModel[] | null = null;
 

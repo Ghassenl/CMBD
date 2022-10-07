@@ -34,7 +34,7 @@ const networkInterfaceCreateValidationMiddleware: RequestHandler = async (
     ),
     //if 'id_gateway' not specified/defined it defaults to null
     id_gateway: coerce(
-      nullable(number()),
+      optional(nullable(number())),
       optional(number()),
       (value) => value ?? null,
     ),
@@ -87,9 +87,7 @@ const networkInterfaceUpdateValidationMiddleware: RequestHandler = async (
         /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/,
       ),
     ),
-    id_gateway: optional(
-      coerce(nullable(number()), optional(number()), (value) => value ?? null),
-    ),
+    id_gateway: optional(nullable(number())),
   });
 
   try {

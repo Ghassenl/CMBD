@@ -43,7 +43,7 @@ model Partition {
   fs_format String @default("ntfs")
   size      Int
   id_disk   Int
-  raid      Disk   @relation(fields: [id_disk], references: [id])
+  disk      Disk   @relation(fields: [id_disk], references: [id])
 }
 
 model NetworkInterface {

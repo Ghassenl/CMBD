@@ -29,7 +29,7 @@ const secRuleCreateValidationMiddleware: RequestHandler = async (
       ["IN", "OUT"].includes(value),
     ),
     destination: coerce(
-      nullable(string()),
+      optional(nullable(string())),
       optional(string()),
       (value) => value ?? null,
     ),
@@ -43,11 +43,13 @@ const secRuleCreateValidationMiddleware: RequestHandler = async (
   try {
     if (req.body) {
       if (Array.isArray(req.body)) {
-        req.body = [];
+        const body = [];
 
         for (const disk of req.body) {
-          req.body.push(create(disk, SecRule));
+          body.push(create(disk, SecRule));
         }
+
+        req.body = body;
       } else {
         req.body = create(req.body, SecRule);
       }
@@ -93,17 +95,13 @@ const secRuleUpdateValidationMiddleware: RequestHandler = async (
         ["IN", "OUT"].includes(value),
       ),
     ),
-    destination: optional(
-      coerce(nullable(string()), optional(string()), (value) => value ?? null),
-    ),
+    destination: optional(nullable(string())),
     policy: optional(
       refine(string(), "SecRule Policy validation Error", (value) =>
         ["ACCEPT", "REJECT", "DESTROY"].includes(value),
       ),
     ),
-    id_sec_group: optional(
-      coerce(number(), optional(number()), (value) => value ?? 1),
-    ),
+    id_sec_group: optional(number()),
   });
 
   try {

@@ -38,7 +38,7 @@ class RaidModel implements IRaid {
   toJson(): JSONObject {
     return {
       id: this.id,
-      type: this.raid_type,
+      raid_type: this.raid_type,
     };
   }
 

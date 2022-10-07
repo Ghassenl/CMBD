@@ -76,7 +76,7 @@ class NetworkInterfacesController {
         networkInterfaces,
       );
 
-      if (networkInterfaceRes) {
+      if (networkInterfaceRes.length) {
         const res: NetworkInterfaceModel[] = [];
         for (const networkInterface of networkInterfaceRes) {
           if (networkInterface) {

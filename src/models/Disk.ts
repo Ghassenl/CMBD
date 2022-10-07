@@ -2,8 +2,12 @@ import { Disk as IDisk } from "@prisma/client";
 import { IPartition, PartitionModel } from "./Partition";
 import { JSONObject } from "./types";
 
-type IDiskCreateDTO = Omit<IDisk, "id">;
-type IDiskPatchDTO = Partial<IDiskCreateDTO>;
+type ICreateUpdateDisk = Omit<IDisk, "id_raid"> & {
+  id_raid?: number | null;
+};
+
+type IDiskCreateDTO = Omit<ICreateUpdateDisk, "id">;
+type IDiskPatchDTO = Partial<ICreateUpdateDisk>;
 
 class DiskModel implements IDisk {
   id: number;

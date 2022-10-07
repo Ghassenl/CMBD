@@ -71,7 +71,7 @@ class RaidsController {
     try {
       const raidRes = await RaidsService.createList(raids);
 
-      if (raidRes) {
+      if (raidRes.length) {
         const res: RaidModel[] = [];
         for (const raid of raidRes) {
           if (raid) {

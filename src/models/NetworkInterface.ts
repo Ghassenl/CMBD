@@ -1,8 +1,12 @@
 import { NetworkInterface as INetworkInterface } from "@prisma/client";
 import { JSONObject } from "./types";
 
-type INetworkInterfaceCreateDTO = Omit<INetworkInterface, "id">;
-type INetworkInterfacePatchDTO = Partial<INetworkInterfaceCreateDTO>;
+type ICreateUpdateNetworkInterface = Omit<INetworkInterface, "id_gateway"> & {
+  id_gateway?: number | null;
+};
+
+type INetworkInterfaceCreateDTO = Omit<ICreateUpdateNetworkInterface, "id">;
+type INetworkInterfacePatchDTO = Partial<ICreateUpdateNetworkInterface>;
 
 class NetworkInterfaceModel implements INetworkInterface {
   id: number;

@@ -121,7 +121,7 @@ class ServersController {
     try {
       const serverRes = await ServersService.createList(servers);
 
-      if (serverRes) {
+      if (serverRes.length) {
         const res: ServerModel[] = [];
         for (const server of serverRes) {
           if (server) {
